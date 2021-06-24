@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
+import { useGlobalState } from '../utils/stateContext'
 
-const MessageForm =({history, loggedInUser, addMessage})=>{
+const MessageForm =({history})=>{
+
+    const {store, dispatch} = useGlobalState()
+    const {loggedInUser, messageList} = store
+
     const initialFormData = {
         text: ""
     }
@@ -25,6 +30,28 @@ const MessageForm =({history, loggedInUser, addMessage})=>{
         })
         return history.push("/messages")
     }
+
+    function getNextId(){
+        const ids = messageList.map(m => m.id) //[3, 2, 1]
+        return ids.sort()[ids.length - 1] + 1 // -> [1, 2, 3] -> 3 -> 4
+      }
+
+    function addMessage(text){
+        const message = {
+          id: getNextId(),
+          text: text, 
+          user: loggedInUser
+        }
+        // setMessageList(
+        //   (messageList) => [message, ...messageList]
+        // )
+        //will run the reducer, and will send an object that is the action
+        dispatch({
+          type: "addMessage",
+          data: message 
+        })
+      }
+    
 
     return(
         <div>
