@@ -4,8 +4,6 @@ import { getMessageById, deleteMessage } from '../services/messageService'
 import { useGlobalState } from '../utils/stateContext'
 
 const MessageDetail =()=>{
-    //console.log(match);
-    //console.log(message);
     const {store, dispatch} = useGlobalState();
     const {loggedInUser} = store;
     const [message, setMessage] = useState(null);
@@ -28,7 +26,6 @@ const MessageDetail =()=>{
             })
             .catch(error => console.log(error));
     };
-    // if (!message) return null
 
     return(
         <div>

@@ -6,7 +6,6 @@ function SignupForm({history}) {
     const {dispatch} = useGlobalState()
     const [error, setError] = useState("")
 
-    console.log(history)
     const initialFormData = {
         username: "",
         email: "",

@@ -6,7 +6,6 @@ const LoginForm =({history})=>{
     const { dispatch } = useGlobalState()
     const [error, setError] = useState("")
 
-    // console.log(history)
     const initialFormData = {
         email: "",
         password: ""
@@ -23,10 +22,6 @@ const LoginForm =({history})=>{
 
     function handleSubmit(e){
         e.preventDefault()
-        //console.log("You clicked login: ", formData.email)
-        //console.log(formData.password)
-        // activateUser(formData.email)
-        console.log(history)
         signIn(formData)
             .then((user) => {
                 if (user.error){
@@ -46,10 +41,6 @@ const LoginForm =({history})=>{
                     return history.push("/messages")
                 }
             })
-            // .then(({username, jwt}) => {
-            // })
-            // .catch(error => {
-            // })
     }
 
     return(

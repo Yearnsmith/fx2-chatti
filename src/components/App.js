@@ -32,7 +32,6 @@ const App = () => {
   useEffect(()=>{
     //setMessageList(initialMessageList)
     //will run the reducer, and will send an object that is the action
-    console.log("effect")
     getMessages()
       .then((messages) => {
         dispatch({

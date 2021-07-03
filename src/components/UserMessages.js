@@ -10,7 +10,7 @@ const DisplayMessages = ({messages, user}) => messages.length > 0 ?
     )
     : <p>{user} has no messages</p>
 
-const MyMessages =({history})=>{
+const MyMessages =()=>{
     const {store} = useGlobalState();
     const { loggedInUser } = store;
     const [userMessageList, setUserMessageList] = useState(null);
@@ -19,16 +19,13 @@ const MyMessages =({history})=>{
 
 
     useEffect(()=>{
-        // const current_user = sessionStorage.getItem("username")
         getMessagesByUser(user)
             .then( messages =>{
-                console.log("arr length",messages.length)
-                console.log("messages:", messages)
                 setUserMessageList(messages)
                 setIsLoading(false)
             });
     },[user]);
-    console.log(user)
+
     return(
         <section>
             <h3>{user === loggedInUser ? "My" : `${user}'s`} Messages</h3>

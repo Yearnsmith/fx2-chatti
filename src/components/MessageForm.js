@@ -22,7 +22,6 @@ const MessageForm =({history})=>{
 
     function handleSubmit(e){
         e.preventDefault()
-        console.log(formData)
         createMessage(formData)
             .then((message) => {
                 dispatch({

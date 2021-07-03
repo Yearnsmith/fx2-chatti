@@ -10,8 +10,6 @@ const Navigation =()=>{
 
     function logout(e){
         e.preventDefault()
-        console.log("logout")
-        // activateUser("")
         sessionStorage.clear();
         dispatch({//action object
             type: "setLoggedInUser",

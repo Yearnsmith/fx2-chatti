@@ -5,7 +5,6 @@ import { useGlobalState } from '../utils/stateContext'
 const Messages =()=>{
     const {store} = useGlobalState()
     const {messageList} = store
-    console.log(messageList)
     
     return(
         <div>
