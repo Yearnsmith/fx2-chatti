@@ -28,12 +28,7 @@ export default function reducer(state, action){
         }
 
         case "deleteMessage": {
-            // const updatedMessageList = state.messageList.filter( message => message.id !== Number(action.data) )
-            //eslint-disable-next-line
-            const updatedMessageList = state.messageList.filter( message =>
-                message.id != action.data
-            )
-
+            const updatedMessageList = state.messageList.filter( message => message.id !== Number(action.data) )
             return {
                 ...state,
                 messageList: updatedMessageList

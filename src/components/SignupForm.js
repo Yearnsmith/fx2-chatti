@@ -21,7 +21,6 @@ function SignupForm({history}) {
             ...formData,
             [e.target.name] : e.target.value
         })
-        console.log(e.target.value)
     }
     function handleSubmit(e){
         e.preventDefault()
@@ -44,10 +43,9 @@ function SignupForm({history}) {
             })
             .catch( err =>{
                 setError(err.message)
-            }
-            )
-
+            });
     }
+    
     return (
         <div>
             {error && <p>{error}</p>}

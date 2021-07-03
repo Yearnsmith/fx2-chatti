@@ -35,7 +35,7 @@ const MessageDetail =()=>{
             {message? 
             <>
                 {message.text}
-                <p>{message.username} {message.posted}</p>
+                <p><Link to={`/messages/users/${message.username}`}>{message.username}</Link> {message.posted}</p>
                 {
                     loggedInUser === message.username &&
                         <button onClick={removeMessage}>Delete message</button>

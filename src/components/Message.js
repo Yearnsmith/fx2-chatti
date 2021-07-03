@@ -5,10 +5,10 @@ const Message =({message})=>{
     //console.log(match)
     //console.log(message)
     return(
-        <div>
+        <article>
             {message? 
             <>
-                <Link to={`/messages/${message.id}`} ><h4>{message.text}</h4></Link>
+                <p><Link to={`/messages/${message.id}`} >{message.text}</Link></p>
                 <p><Link to={`/messages/users/${message.username}`}>{message.username}</Link> {message.posted}</p>
             </>
             :
@@ -17,7 +17,7 @@ const Message =({message})=>{
                     <Link to="/messages">Go back to the home page</Link>
                 </>
             }
-        </div>
+        </article>
         
     )
 }
