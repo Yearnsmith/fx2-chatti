@@ -12,10 +12,15 @@ const Navigation =()=>{
         e.preventDefault()
         console.log("logout")
         // activateUser("")
+        sessionStorage.clear();
         dispatch({//action object
             type: "setLoggedInUser",
             data: ""
-        })
+        });
+        dispatch({
+            type: "setToken",
+            data: null
+        });
     }
 
     return(
@@ -26,11 +31,12 @@ const Navigation =()=>{
                 <>
                     {loggedInUser}
                     <Link to="/newmessage">Post a new message</Link>
+                    <Link to={`/messages/users/${loggedInUser}`}>My messages</Link>
                     <Link to="/messages" onClick={logout}>Logout</Link>
                 </> 
             :   <>
                     <Link to="/login">Login</Link>
-                    <Link to="/login">Sign up</Link>
+                    <Link to="/signup">Sign up</Link>
                     Guest
                 </>
             }

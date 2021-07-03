@@ -27,11 +27,35 @@ export default function reducer(state, action){
             }
         }
 
+        case "deleteMessage": {
+            // const updatedMessageList = state.messageList.filter( message => message.id !== Number(action.data) )
+            //eslint-disable-next-line
+            const updatedMessageList = state.messageList.filter( message =>
+                message.id != action.data
+            )
+
+            return {
+                ...state,
+                messageList: updatedMessageList
+            }
+        }
+
         case "setLoggedInUser":{
             //update loggedinUser's value
             return{
                 ...state,
                 loggedInUser: action.data
+            }
+        }
+
+        case "setToken":{
+            //update loggedinUser's token
+            return{
+                ...state,
+                auth: {
+                    ...state.auth,
+                    token: action.data
+                }    
             }
         }
         default: return state

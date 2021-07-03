@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { useGlobalState } from '../utils/stateContext'
+import { createMessage } from '../services/messageService'
 
 const MessageForm =({history})=>{
 
     const {store, dispatch} = useGlobalState()
-    const {loggedInUser, messageList} = store
+    const { loggedInUser } = store
 
     const initialFormData = {
-        text: ""
+        m_text: ""
     }
 
     const [formData, setFormData] = useState(initialFormData)
@@ -22,43 +23,25 @@ const MessageForm =({history})=>{
     function handleSubmit(e){
         e.preventDefault()
         console.log(formData)
-        addMessage(formData.text)
+        createMessage(formData)
+            .then((message) => {
+                dispatch({
+                    type:"addMessage",
+                    data: message
+                })
+                return history.push("/messages")
+            })
+            .catch(err => {console.log(err)})
+        // addMessage(formData.m_text)
         //clean the form after submitting
-        setFormData({
-            ...formData,
-            text: ""
-        })
-        return history.push("/messages")
-    }
-
-    function getNextId(){
-        const ids = messageList.map(m => m.id) //[3, 2, 1]
-        return ids.sort()[ids.length - 1] + 1 // -> [1, 2, 3] -> 3 -> 4
-      }
-
-    function addMessage(text){
-        const message = {
-          id: getNextId(),
-          text: text, 
-          user: loggedInUser
-        }
-        // setMessageList(
-        //   (messageList) => [message, ...messageList]
-        // )
-        //will run the reducer, and will send an object that is the action
-        dispatch({
-          type: "addMessage",
-          data: message 
-        })
-      }
-    
+    }    
 
     return(
         <div>
             {loggedInUser?
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="text">What's on your mind {loggedInUser}?</label>
-                    <input type="text" name="text" id="text" value={formData.text} onChange={handleFormData}/>
+                    <input type="text" name="m_text" id="m_text" value={formData.m_text} onChange={handleFormData}/>
                     <input type="submit" value="Send" />
                 </form>
             : 

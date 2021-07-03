@@ -9,7 +9,7 @@ const Message =({message})=>{
             {message? 
             <>
                 <Link to={`/messages/${message.id}`} ><h4>{message.text}</h4></Link>
-                <p>{message.user}</p>
+                <p><Link to={`/messages/users/${message.username}`}>{message.username}</Link> {message.posted}</p>
             </>
             :
                 <>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useGlobalState } from '../utils/stateContext'
+import { signIn } from '../services/authService'
 
 const LoginForm =({history})=>{
-
     const { dispatch } = useGlobalState()
+    const [error, setError] = useState("")
 
-    console.log(history)
+    // console.log(history)
     const initialFormData = {
         email: "",
         password: ""
@@ -25,16 +26,35 @@ const LoginForm =({history})=>{
         //console.log("You clicked login: ", formData.email)
         //console.log(formData.password)
         // activateUser(formData.email)
-        dispatch({
-            type: 'setLoggedInUser',
-            data: formData.email
-        })
-        return history.push("/messages")
-
+        console.log(history)
+        signIn(formData)
+            .then((user) => {
+                if (user.error){
+                    setError(user.error)
+                }
+                else {
+                    sessionStorage.setItem("username", user.username);
+                    sessionStorage.setItem("token", user.jwt)
+                    dispatch({
+                        type: 'setLoggedInUser',
+                        data: user.username
+                    });
+                    dispatch({
+                        type: "setToken",
+                        data: user.jwt
+                    })
+                    return history.push("/messages")
+                }
+            })
+            // .then(({username, jwt}) => {
+            // })
+            // .catch(error => {
+            // })
     }
 
     return(
         <div>
+            {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">Email:</label>
                 <input type="email" name="email" id="email" value={formData.email} onChange={handleFormData}/>
